@@ -1,4 +1,4 @@
-const trivia = require('.src/hubot-simple-trivia')
+const trivia = require('./src/hubot-simple-trivia')
 
 module.exports = robot => {
 
