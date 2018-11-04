@@ -11,18 +11,30 @@ module.exports = robot => {
     trivia
         .newQuestion()
         .then(s => res.send(s))
+        .catch((e => {
+          console.error(e)
+          res.send('Having trouble... Sorry...')
+        }))
   })
 
   robot.hear(/^!triviarepeat$/i, res => {
     trivia
         .repeatQuestion()
         .then(s = res.send(s))
+        .catch((e => {
+          console.error(e)
+          res.send('Having trouble... Sorry...')
+        }))
   })
 
   robot.hear(/^!ans ([abcdABCD])$/i, res => {
     trivia
         .answer(res.match[1])
         .then(s = res.send(s))
+        .catch((e => {
+          console.error(e)
+          res.send('Having trouble... Sorry...')
+        }))
   })
 
 }

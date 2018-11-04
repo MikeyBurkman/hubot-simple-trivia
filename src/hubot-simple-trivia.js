@@ -27,34 +27,34 @@ function newQuestion() {
       currentQuestion = question
       return formatQuestion(question)
     })
-    .catch((err) => {
-      console.error(err)
-      return 'Could not get question. Sorry...'
-    })
 }
 
 function repeatQuestion() {
-  if (currentQuestion) {
-    return Promise.resolve(formatQuestion(currentQuestion))
-  } else {
-    return Promise.resolve(INACTIVE_MESSAGE)
-  }
+  return Promise.resolve().then(() => {
+    if (currentQuestion) {
+      return formatQuestion(currentQuestion)
+    } else {
+      return INACTIVE_MESSAGE
+    }
+  });
 }
 
 function answer(ans) {
-  if (!currentQuestion) {
-    return Promise.resolve(INACTIVE_MESSAGE)
-  }
+  return Promise.resolve().then(() => {
+    if (!currentQuestion) {
+      return INACTIVE_MESSAGE
+    }
 
-  const idx = answerNames.indexOf(_.upperCase(ans))
+    const idx = answerNames.indexOf(_.upperCase(ans))
 
-  if (idx !== currentQuestion.correctAnswerIdx) {
-    return Promise.resolve('WRONG!')
-  }
+    if (idx !== currentQuestion.correctAnswerIdx) {
+      return 'WRONG!'
+    }
 
-  const correctAnswer = currentQuestion.correctAnswer
-  currentQuestion = undefined
-  return Promise.resolve(`CORRECT! The answer was \`${correctAnswer}\``)
+    const correctAnswer = currentQuestion.correctAnswer
+    currentQuestion = undefined
+    return `CORRECT! The answer was \`${correctAnswer}\``
+  })
 }
 
 function formatQuestion(question) {
